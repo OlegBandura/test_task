@@ -1,0 +1,40 @@
+<%= flash[:notice] %>
+
+<h2>Imported Data</h2>
+<%= form_tag import_session_history_index_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag 'Import CSV' %>
+<% end %>
+
+<table border="solid">
+  <thead>
+    <tr>
+      <% @columns.each do |column| %>
+        <th><%= column %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sessions.each do |session| %>
+      <tr>
+        <td><%= session.id %></td>
+        <td><%= session.session_id %></td>
+        <td><%= session.started_by %></td>
+        <td><%= session.created_at %></td>
+        <td><%= session.summary_status %></td>
+        <td><%= session.duration %></td>
+        <td><%= session.worker_time %></td>
+        <td><%= session.bundle_time %></td>
+        <td><%= session.num_workers %></td>
+        <td><%= session.branch %></td>
+        <td><%= session.commit_id %></td>
+        <td><%= session.started_tests_count %></td>
+        <td><%= session.passed_tests_count %></td>
+        <td><%= session.failed_tests_count %></td>
+        <td><%= session.pending_tests_count %></td>
+        <td><%= session.skipped_tests_count %></td>
+        <td><%= session.error_tests_count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
