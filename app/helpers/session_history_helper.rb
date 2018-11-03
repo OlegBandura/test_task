@@ -1,0 +1,2 @@
+module SessionHistoryHelper
+end

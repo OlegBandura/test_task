@@ -1,7 +1,7 @@
 class SessionHistoryController < ApplicationController
   def index
-    @sessions = SessionHistory.all
-    @columns = SessionHistory.column_names
+    @sessions ||= sessions
+    @columns ||= columns
   end
 
   def import
@@ -10,6 +10,14 @@ class SessionHistoryController < ApplicationController
   end
 
   private
+
+  def sessions
+    SessionHistoryData.new.call
+  end
+
+  def columns
+    SessionHistoryTitle.new.call
+  end
 
   def import_params
     params[:file]
