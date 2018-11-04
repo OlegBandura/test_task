@@ -1,5 +1,8 @@
 <%= flash[:notice] %>
 
+<div id='my_line'></div>
+<div id='my_staked_chart'></div>
+
 <h2>Imported Data</h2>
 <%= form_tag import_session_history_index_path, multipart: true do %>
   <%= file_field_tag :file %>
@@ -38,3 +41,54 @@
     <% end %>
   </tbody>
 </table>
+
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+       function drawChart() {
+
+         var data = google.visualization.arrayToDataTable([
+          ['created_at', 'duration']
+           <% @sessions.each do |session| %>
+             ,['<%= session.created_at %>',  <%= session.duration %>]
+         <% end %>
+        ]);
+
+         var options = {
+           title: 'Company Performance',
+           curveType: 'function',
+           legend: { position: 'bottom' }
+         };
+
+         var chart = new google.visualization.LineChart(document.getElementById('my_line'));
+
+         chart.draw(data, options);
+       }
+</script>
+
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+ function drawChart() {
+
+   var my_key = { 'passed': 0, 'error': 1, 'failed': 2, 'stopped': 3 };
+   var data = google.visualization.arrayToDataTable([
+    ['created_at', 'summary status']
+     <% @sessions.each do |session| %>
+       ,['<%= session.created_at %>', my_key['<%= session.summary_status %>']]
+   <% end %>
+  ]);
+
+   var options = {
+     title: 'Company Performance',
+     curveType: 'function',
+     legend: { position: 'bottom' }
+   };
+
+   var chart = new google.visualization.BarChart(document.getElementById('my_staked_chart'));
+
+   chart.draw(data, options);
+ }
+</script>
