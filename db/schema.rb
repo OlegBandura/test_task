@@ -12,13 +12,16 @@
 
 ActiveRecord::Schema.define(version: 2018_11_02_134345) do
 
-  create_table "session_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "session_histories", force: :cascade do |t|
     t.integer "session_id"
     t.string "started_by"
     t.string "created_at"
     t.integer "summary_status"
-    t.decimal "duration", precision: 10
-    t.decimal "worker_time", precision: 10
+    t.decimal "duration"
+    t.decimal "worker_time"
     t.integer "bundle_time"
     t.integer "num_workers"
     t.string "branch"
