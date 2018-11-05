@@ -17,3 +17,35 @@ Processing by Rails::WelcomeController#index as HTML
 Completed 200 OK in 39ms (Views: 18.7ms | ActiveRecord: 0.0ms)
 
 
+Started GET "/?page=6" for 127.0.0.1 at 2018-11-05 19:56:33 +0200
+  [1m[35m (1.0ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  ↳ /home/olko/.rvm/gems/ruby-2.3.5/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  ↳ /home/olko/.rvm/gems/ruby-2.3.5/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by SessionHistoryController#index as HTML
+  Parameters: {"page"=>"6"}
+  Rendering session_history/index.html.erb within layouts/application
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM `session_histories`[0m
+  ↳ app/views/session_history/index.html.erb:14
+  [1m[36mSessionHistory Load (0.8ms)[0m  [1m[34mSELECT  `session_histories`.* FROM `session_histories` LIMIT 10 OFFSET 50[0m
+  ↳ app/views/session_history/index.html.erb:25
+  [1m[36mSessionHistory Load (1.2ms)[0m  [1m[34mSELECT `session_histories`.* FROM `session_histories`[0m
+  ↳ app/views/session_history/index.html.erb:57
+  Rendered session_history/index.html.erb within layouts/application (189.4ms)
+Completed 200 OK in 710ms (Views: 664.8ms | ActiveRecord: 5.1ms)
+
+
+Started GET "/?page=2" for 127.0.0.1 at 2018-11-05 19:56:39 +0200
+Processing by SessionHistoryController#index as HTML
+  Parameters: {"page"=>"2"}
+  Rendering session_history/index.html.erb within layouts/application
+  [1m[35m (3.6ms)[0m  [1m[34mSELECT COUNT(*) FROM `session_histories`[0m
+  ↳ app/views/session_history/index.html.erb:14
+  [1m[36mSessionHistory Load (0.7ms)[0m  [1m[34mSELECT  `session_histories`.* FROM `session_histories` LIMIT 10 OFFSET 10[0m
+  ↳ app/views/session_history/index.html.erb:25
+  [1m[36mSessionHistory Load (3.4ms)[0m  [1m[34mSELECT `session_histories`.* FROM `session_histories`[0m
+  ↳ app/views/session_history/index.html.erb:57
+  Rendered session_history/index.html.erb within layouts/application (77.7ms)
+Completed 200 OK in 128ms (Views: 116.8ms | ActiveRecord: 7.7ms)
+
+
