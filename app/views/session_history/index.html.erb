@@ -3,17 +3,21 @@
 <div id='my_line'></div>
 <div id='my_staked_chart'></div>
 
+<div id="import">
 <h2>Imported Data</h2>
 <%= form_tag import_session_history_index_path, multipart: true do %>
   <%= file_field_tag :file %>
   <%= submit_tag 'Import CSV' %>
 <% end %>
+</div>
 
-<table border="solid">
+<%= paginate @sessions %>
+
+<table border="solid" id='session_table'>
   <thead>
     <tr>
       <% @columns.each do |column| %>
-        <th><%= column %></th>
+        <th><%= column unless column['id '] %></th>
       <% end %>
     </tr>
   </thead>
@@ -50,7 +54,7 @@
 
          var data = google.visualization.arrayToDataTable([
           ['created_at', 'duration']
-           <% @sessions.each do |session| %>
+           <% @graphics.each do |session| %>
              ,['<%= session.created_at %>',  <%= session.duration %>]
          <% end %>
         ]);
@@ -71,12 +75,12 @@
   google.charts.load('current', {'packages':['corechart']});
   google.charts.setOnLoadCallback(drawChart);
 
- function drawChart() {
+  function drawChart() {
 
    var my_key = { 'passed': 0, 'error': 1, 'failed': 2, 'stopped': 3 };
    var data = google.visualization.arrayToDataTable([
     ['created_at', 'summary status']
-     <% @sessions.each do |session| %>
+     <% @graphics.each do |session| %>
        ,['<%= session.created_at %>', my_key['<%= session.summary_status %>']]
    <% end %>
   ]);
@@ -90,5 +94,5 @@
    var chart = new google.visualization.BarChart(document.getElementById('my_staked_chart'));
 
    chart.draw(data, options);
- }
+  }
 </script>

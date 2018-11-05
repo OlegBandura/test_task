@@ -1,6 +1,7 @@
 class SessionHistoryController < ApplicationController
   def index
     @sessions ||= sessions
+    @graphics ||= graphics
     @columns ||= columns
   end
 
@@ -12,11 +13,15 @@ class SessionHistoryController < ApplicationController
   private
 
   def sessions
-    SessionHistoryData.new.call
+    SessionHistoryData.new.call.page(params[:page]).per(10)
   end
 
   def columns
     SessionHistoryTitle.new.call
+  end
+
+  def graphics
+    SessionHistoryData.new.call
   end
 
   def import_params
